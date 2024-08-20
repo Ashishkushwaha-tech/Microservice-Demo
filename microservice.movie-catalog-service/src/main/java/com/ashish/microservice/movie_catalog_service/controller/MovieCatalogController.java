@@ -3,6 +3,7 @@ package com.ashish.microservice.movie_catalog_service.controller;
 import com.ashish.microservice.movie_catalog_service.model.CatalogItem;
 import com.ashish.microservice.movie_catalog_service.model.Movie;
 import com.ashish.microservice.movie_catalog_service.model.Rating;
+import com.ashish.microservice.movie_catalog_service.model.UserRating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,12 +28,10 @@ public class MovieCatalogController {
     @GetMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
 
-       Rating rating=restTemplate.getForObject("http://localhost:9191/ratingsdata/users/1/"+userId, Rating.class);
-        System.out.println(rating);
-       List<Rating> ratings=new ArrayList<>();
-       ratings.add(rating);
+       UserRating ratings=restTemplate.getForObject("http://localhost:9191/ratingsdata/users/"+userId, UserRating.class);
+
         // get all rated movie Id's
-        return ratings.stream().map((rat)->{
+        return ratings.getRatingList().stream().map((rat)->{
             Movie movie =restTemplate.getForObject("http://localhost:9193/movieInfo/"+rat.getMovieId(), Movie.class);
             return new CatalogItem().builder().
                     name(movie.getName()).ratings(rat.getRating()).
