@@ -3,6 +3,7 @@ package com.ashish.microservice.movie_catalog_service.controller;
 import com.ashish.microservice.movie_catalog_service.model.CatalogItem;
 import com.ashish.microservice.movie_catalog_service.model.Movie;
 import com.ashish.microservice.movie_catalog_service.model.Rating;
+import com.ashish.microservice.movie_catalog_service.model.UserRating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,31 +24,20 @@ public class MovieCatalogController {
 
 
     @Autowired
-    private WebClient.Builder webClientBuilder;
+    private RestTemplate restTemplate;
 
     @GetMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
 
 
-       Rating rating=webClientBuilder.build().
-               get().
-               uri("http://localhost:9191/ratingsdata/users/1/"+userId).
-               retrieve()
-               .bodyToMono(Rating.class)
-               .block();
+        UserRating ratings=restTemplate.getForObject("http://MICROSERVICE.RATINGS-SERVICE/ratingsdata/users/"+userId, UserRating.class);
 
-        System.out.println(rating);
-       List<Rating> ratings=new ArrayList<>();
-       ratings.add(rating);
 
-        return ratings.stream().map((rat)->{
+
+
+        return ratings.getRatingList().stream().map((rat)->{
             // For each movie ID, call movie info service and get details
-            Movie movie =webClientBuilder.build()
-                    .get()
-                    .uri("http://localhost:9193/movieInfo/"+rat.getMovieId())
-                    .retrieve()
-                    .bodyToMono(Movie.class)
-                    .block();
+            Movie movie =restTemplate.getForObject("http://MICROSERVICE.MOVIE/movieInfo/"+rat.getMovieId(), Movie.class);
             // put them all together
             return new CatalogItem().builder().
                     name(movie.getName()).ratings(rat.getRating()).

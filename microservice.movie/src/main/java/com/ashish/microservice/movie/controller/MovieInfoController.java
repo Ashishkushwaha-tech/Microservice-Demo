@@ -12,6 +12,6 @@ public class MovieInfoController {
 
     @GetMapping("/{movieId}")
     public Movie getMovie(@PathVariable("movieId") String movieId){
-        return Movie.builder().movieId(movieId).name("dhammal using web client"+movieId).build();
+        return Movie.builder().movieId(movieId).name("dhammal "+movieId).build();
     }
 }
