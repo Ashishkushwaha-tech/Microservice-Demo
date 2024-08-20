@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ashish</groupId>
-	<artifactId>movie-info</artifactId>
+	<artifactId>movie</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>microservice.movie</name>
 	<description>Demo project for Spring Boot</description>

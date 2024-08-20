@@ -7,17 +7,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="movie" />
         <module name="microservice.ratings-service" />
         <module name="microservice.movie-catalog-service" />
-        <module name="microservice.movie" />
+        <module name="microservice.movie-info" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="microservice.movie" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="microservice.movie" options="-parameters" />
       <module name="microservice.movie-catalog-service" options="-parameters" />
+      <module name="microservice.movie-info" options="-parameters" />
       <module name="microservice.ratings-service" options="-parameters" />
+      <module name="movie" options="-parameters" />
     </option>
   </component>
 </project>
