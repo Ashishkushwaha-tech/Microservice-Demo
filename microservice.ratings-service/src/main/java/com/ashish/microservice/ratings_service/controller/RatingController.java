@@ -1,6 +1,7 @@
 package com.ashish.microservice.ratings_service.controller;
 
 import com.ashish.microservice.ratings_service.model.Rating;
+import com.ashish.microservice.ratings_service.model.UserRating;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,9 @@ public class RatingController {
     }
 
     @GetMapping("/users/{movieId}")
-    public List<Rating> getRatingList(@PathVariable("movieId") String movieId) {
-        return Arrays.asList(Rating.builder().movieId("211").rating(5).build(),
-                Rating.builder().movieId("44").rating(4).build());
+    public UserRating getRatingList(@PathVariable("movieId") String movieId) {
+        return UserRating.builder().ratingList( Arrays.asList(Rating.builder().movieId("211").rating(5).build(),
+                Rating.builder().movieId("44").rating(4).build())).build();
     }
     @GetMapping("/users/1/{movieId}")
     public Rating getRating(@PathVariable("movieId") String movieId) {
