@@ -21,8 +21,8 @@ public class RatingController {
 
     @GetMapping("/users/{movieId}")
     public UserRating getRatingList(@PathVariable("movieId") String movieId) {
-        return UserRating.builder().ratingList( Arrays.asList(Rating.builder().movieId("211").rating(5).build(),
-                Rating.builder().movieId("44").rating(4).build())).build();
+        return UserRating.builder().ratingList( Arrays.asList(Rating.builder().movieId("157336").rating(5).build(),
+                Rating.builder().movieId("15733").rating(4).build(),Rating.builder().movieId("1573").rating(4).build())).build();
     }
     @GetMapping("/users/1/{movieId}")
     public Rating getRating(@PathVariable("movieId") String movieId) {

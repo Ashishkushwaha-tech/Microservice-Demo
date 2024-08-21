@@ -41,7 +41,7 @@ public class MovieCatalogController {
             // put them all together
             return new CatalogItem().builder().
                     name(movie.getName()).ratings(rat.getRating()).
-                    description("test").build();
+                    description(movie.getDescription()).build();
         }).collect(Collectors.toList());
 
     }
