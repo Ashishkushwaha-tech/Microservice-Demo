@@ -13,5 +13,6 @@ import java.util.List;
 @Builder
 @Data
 public class UserRating {
-    List<Rating> ratingList;
+    private List<Rating> ratingList;
+    private String userId;
 }
